@@ -29,10 +29,14 @@ class CronManager(object):
         """ Returns application python path - if you want then customize it! """
         return '{0}/bin/python'.format(sys.prefix) 
 
-    def create_command(self, filename):
+    def create_command(self, filename, interpreter=None):
         """ Returns command for crontab by inserting name of file to run """
+        if not interpreter:
+            return '{0} {1}/scripts/{2}'.format(
+                self.get_python_path(), self.app.root_path, filename)
+
         return '{0} {1}/scripts/{2}'.format(
-            self.get_python_path(), self.app.root_path, filename)
+            interpreter, self.app.root_path, filename)
 
     def get_commands(self):
         """ Collects commands for crontab """
