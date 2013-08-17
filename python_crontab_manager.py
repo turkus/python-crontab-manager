@@ -1,4 +1,4 @@
-import os 
+import sys 
 
 
 class CronManager(object):
@@ -27,7 +27,7 @@ class CronManager(object):
 
     def get_python_path(self):
         """ Returns application python path - if you want then customize it! """
-        return '{0}/bin/python'.format(os.environ['PWD']) 
+        return '{0}/bin/python'.format(sys.prefix) 
 
     def create_command(self, filename):
         """ Returns command for crontab by inserting name of file to run """
@@ -36,10 +36,10 @@ class CronManager(object):
 
     def get_commands(self):
         """ Collects commands for crontab """
-        command_tmp = self.create_command('cron_tmp.py') 
+        command_dummy = self.create_command('cron_dummy.py') 
 
         self.commands = {
-            'command_tmp': command_tmp,
+            'command_dummy': command_dummy,
         }
 
     def remove_commands(self):
@@ -51,5 +51,5 @@ class CronManager(object):
         """ Creates commands for crontab """
 
         # Delete old files from TMP folder
-        cron_tmp = self.cron.new(command=self.commands['command_tmp'])
+        cron_tmp = self.cron.new(command=self.commands['command_dummy'])
         cron_tmp.minute.every(1)
