@@ -68,6 +68,6 @@ class CronManager(object):
     def create_jobs(self):
         """ Creates commands for crontab """
 
-        # Delete old files from TMP folder
+        # Create dummy text file
         cron_tmp = self.cron.new(command=self.commands['command_dummy'])
         cron_tmp.minute.every(1)
